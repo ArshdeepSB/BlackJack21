@@ -20,6 +20,7 @@ struct ContentView: View {
     @State private var firstRand = Int.random(in: 2...13)
     @State private var secondRand = Int.random(in: 2...13)
     @State private var thirdRand = Int.random(in: 2...13)
+    @State private var results = ""
     
     var suits = ["Diamonds", "Hearts", "Spades", "Clubs"]
     
@@ -38,6 +39,10 @@ struct ContentView: View {
                 Image("logo")
                 
                 Spacer()
+                
+                Text(results)
+                    .font(.largeTitle)
+                    .fontWeight(.heavy)
                 
                 //Cards
                 HStack{
@@ -63,6 +68,13 @@ struct ContentView: View {
                 //Player Cards
                 VStack{
                     Button {
+                        playerScore = 0
+                        cpuScore = 0
+                        results = ""
+                        
+                        firstRand = Int.random(in: 2...13)
+                        secondRand = Int.random(in: 2...13)
+                        
                         if(firstRand < 10){ //due to the naming of the cards
                             playerFirstCard = suits.randomElement()! + "0" + String(firstRand)
                         }
@@ -101,7 +113,8 @@ struct ContentView: View {
 //                        let randomSuit = suits.randomElement()!
                         
                         // update the cards
-
+                            thirdRand = Int.random(in: 2...13)
+                        
                             if(thirdRand < 10){ // due to the naming of the cards
                                 playerThirdCard = suits.randomElement()! + "0" + String(thirdRand)
                             }
@@ -121,7 +134,14 @@ struct ContentView: View {
                     
                     
                     Button {
+                        cpuScore = Int.random(in: 17...21)
                         
+                        if(playerScore > cpuScore){
+                            results = "Winner"
+                        }
+                        else{
+                            results = "Loser"
+                        }
 
                     } label: {
                         Text("Stand")
