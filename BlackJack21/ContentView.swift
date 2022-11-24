@@ -17,6 +17,10 @@ struct ContentView: View {
     @State private var cpuThirdCard = "card_back"
     @State private var playerScore = 0
     @State private var cpuScore = 0
+    @State private var firstRand = Int.random(in: 2...13)
+    @State private var secondRand = Int.random(in: 2...13)
+    @State private var thirdRand = Int.random(in: 2...13)
+    
     var suits = ["Diamonds", "Hearts", "Spades", "Clubs"]
     
     
@@ -39,6 +43,7 @@ struct ContentView: View {
                 HStack{
                     Spacer()
                     
+                    
                     Image(playerFirstCard).resizable().aspectRatio(contentMode: .fit)
                     
                     Spacer()
@@ -56,46 +61,58 @@ struct ContentView: View {
                 Spacer()
                 
                 //Player Cards
-                HStack {
+                VStack{
                     Button {
-                        //Generate a random number between 2 and 14
-                        let firstRand = Int.random(in: 2...13)
-                        let secondRand = Int.random(in: 2...13)
-                        let thirdRand = Int.random(in: 2...13)
-                        
-                        // update the cards
-                        playerFirstCard = suits.randomElement()! + String(firstRand)
-                        playerSecondCard = suits.randomElement()! + String(secondRand)
-                        playerThirdCard = suits.randomElement()! + String(thirdRand)
-                        
-                        let randomSuit = suits.randomElement()!
-                        
-                        // update the cards
                         if(firstRand < 10){ //due to the naming of the cards
-                            playerFirstCard = randomSuit + "0" + String(firstRand)
+                            playerFirstCard = suits.randomElement()! + "0" + String(firstRand)
                         }
                         else {
-                            playerFirstCard = randomSuit + String(firstRand)
+                            playerFirstCard = suits.randomElement()! + String(firstRand)
                         }
                         
                         if(secondRand < 10){ // due to the naming of the cards
-                            playerSecondCard = randomSuit + "0" + String(secondRand)
+                            playerSecondCard = suits.randomElement()! + "0" + String(secondRand)
                         }
                         
                         else{
-                            playerSecondCard = randomSuit + String(secondRand)
+                            playerSecondCard = suits.randomElement()! + String(secondRand)
                         }
                         
-                        if(thirdRand < 10){ // due to the naming of the cards
-                            playerThirdCard = randomSuit + "0" + String(thirdRand)
-                        }
+                        playerScore = firstRand + secondRand
                         
-                        else{
-                            playerThirdCard = randomSuit + String(thirdRand)
-                        }
+                        playerThirdCard = "card_back"
                         
-                        //Update Score
+                    } label: {
+                        Text("Start")
+                            .font(.title)
+                            .fontWeight(.semibold)
+                    }
+                }
+                HStack {
+
+                    Button {
+                        //Generate a random number between 2 and 14
                         
+                        // update the cards
+//                        playerFirstCard = suits.randomElement()! + String(firstRand)
+//                        playerSecondCard = suits.randomElement()! + String(secondRand)
+//                        playerThirdCard = suits.randomElement()! + String(thirdRand)
+                        
+//                        let randomSuit = suits.randomElement()!
+                        
+                        // update the cards
+
+                            if(thirdRand < 10){ // due to the naming of the cards
+                                playerThirdCard = suits.randomElement()! + "0" + String(thirdRand)
+                            }
+                            
+                            else{
+                                playerThirdCard = suits.randomElement()! + String(thirdRand)
+                            }
+                            
+                            playerScore += thirdRand
+                            
+                    
                     } label: {
                         Text("Hit")
                             .font(.title)
@@ -103,41 +120,14 @@ struct ContentView: View {
                     }
                     
                     
-//                    Button {
-//                        //Generate a random number between 2 and 14
-//                        let playerRand = Int.random(in: 2...13)
-//                        let cpuRand = Int.random(in: 2...13)
-//                        let randomSuit = suits.randomElement()!
-//
-//                        // update the cards
-//                        if(playerRand < 10){ //due to the naming of the cards
-//                            playerCard = randomSuit + "0" + String(playerRand)
-//                        }
-//                        else {
-//                            playerCard = randomSuit + String(playerRand)
-//                        }
-//
-//                        if(cpuRand < 10){ // due to the naming of the cards
-//                            cpuCard = randomSuit + "0" + String(cpuRand)
-//                        }
-//
-//                        else{
-//                            cpuCard = randomSuit + String(cpuRand)
-//                        }
-//
-//                        //update the score
-//                        if(playerRand > cpuRand){
-//                            playerScore += 1
-//                        }
-//                        else if (cpuRand > playerRand) {
-//                            cpuScore += 1
-//                        }
-//
-//                    } label: {
-//                        Text("Stand")
-//                            .font(.title)
-//                            .fontWeight(.semibold)
-//                    }
+                    Button {
+                        
+
+                    } label: {
+                        Text("Stand")
+                            .font(.title)
+                            .fontWeight(.semibold)
+                    }
                 }
                 
                 Spacer()
